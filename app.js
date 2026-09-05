@@ -45,7 +45,7 @@
     return `
       <header class="page-heading">
         <div><p class="eyebrow">OBRA SELECCIONADA</p><h1>Projects</h1></div>
-        <p class="page-note">SEIS PROYECTOS / CONTENIDO PROVISIONAL<br>TEXTOS E IMÁGENES EDITABLES</p>
+        <p class="page-note">${content.projects.length} PROYECTOS / CONTENIDO PROVISIONAL<br>TEXTOS E IMÁGENES EDITABLES</p>
       </header>
       <section class="project-grid" aria-label="Listado de proyectos">${cards}</section>
       <footer class="page-footer"><span>JAIME POLAINA ARQUITECTURA</span><a href="#/">VOLVER AL INICIO ↑</a></footer>`;
@@ -69,7 +69,7 @@
           <img class="carousel-image" src="${imageUrl(project.gallery[0])}" alt="Imagen provisional 1 de ${project.title}">
           <button class="carousel-arrow carousel-arrow--prev" data-direction="-1" aria-label="Imagen anterior"><span aria-hidden="true">←</span></button>
           <button class="carousel-arrow carousel-arrow--next" data-direction="1" aria-label="Imagen siguiente"><span aria-hidden="true">→</span></button>
-          <div class="image-label">IMAGEN PROVISIONAL <span class="slide-count">01 / 03</span></div>
+          <div class="image-label">IMAGEN PROVISIONAL <span class="slide-count">01 / ${String(project.gallery.length).padStart(2, '0')}</span></div>
         </div>
         <div class="thumbnail-row">${thumbnails}</div>
       </section>
