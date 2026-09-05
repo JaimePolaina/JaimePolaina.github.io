@@ -32,17 +32,16 @@
 
   function projectsView() {
     const cards = content.projects.map((project, index) => `
-      <article class="project-card ${index % 3 === 1 ? 'project-card--tall' : ''}">
+      <article class="project-card ${index % 3 === 1 ? 'project-card--tall' : ''} ${project.verified ? 'project-card--verified' : ''}">
         <a href="#/projects/${project.slug}" aria-label="Abrir proyecto ${project.title}">
           <figure class="project-cover">
-            <img src="${imageUrl(project.cover)}" alt="Imagen provisional del proyecto ${project.title}" loading="${index < 2 ? 'eager' : 'lazy'}">
-            <figcaption>IMAGEN PROVISIONAL</figcaption>
+            <img src="${imageUrl(project.cover)}" alt="${project.verified ? 'Imagen' : 'Imagen provisional'} del proyecto ${project.title}" loading="${index < 2 ? 'eager' : 'lazy'}">
+            <figcaption>${project.coverLabel ?? 'IMAGEN PROVISIONAL'}</figcaption>
           </figure>
           <div class="project-card-meta">
             <span>${project.number}</span>
             <h2>${project.title}</h2>
             <p>${project.subtitle}</p>
-            <span>${project.year}</span>
           </div>
         </a>
       </article>`).join('');
@@ -58,23 +57,25 @@
 
   function projectView(project) {
     const thumbnails = project.gallery.map((key, index) => `
-      <button class="thumb ${index === 0 ? 'is-active' : ''}" data-slide="${index}" aria-label="Ver imagen ${index + 1}" aria-pressed="${index === 0}">
-        <img src="${imageUrl(key)}" alt="Miniatura ${index + 1} de ${project.title}">
+      <button class="thumb ${index === 0 ? 'is-active' : ''} ${project.galleryFit?.[index] === 'contain' ? 'thumb--contained' : ''}" data-slide="${index}" aria-label="Ver ${project.galleryLabels?.[index]?.toLowerCase() ?? `imagen ${index + 1}`}" aria-pressed="${index === 0}">
+        <img src="${imageUrl(key)}" alt="${project.galleryLabels?.[index] ?? `Miniatura ${index + 1}`} de ${project.title}">
         <span>0${index + 1}</span>
       </button>`).join('');
+
+    const firstLabel = project.galleryLabels?.[0] ?? 'IMAGEN PROVISIONAL';
 
     return `
       <a href="#/projects" class="back-link"><span aria-hidden="true">←</span> PROJECTS</a>
       <header class="project-heading">
-        <div><p class="eyebrow">${project.number} / ${project.year}</p><h1>${project.title}</h1></div>
+        <div><p class="eyebrow">${project.number}</p><h1>${project.title}</h1></div>
         <p>${project.subtitle}<br>${project.location}</p>
       </header>
       <section class="carousel" aria-label="Galería de ${project.title}" data-project="${project.slug}">
-        <div class="carousel-stage">
-          <img class="carousel-image" src="${imageUrl(project.gallery[0])}" alt="Imagen provisional 1 de ${project.title}">
+        <div class="carousel-stage ${project.galleryFit?.[0] === 'contain' ? 'is-contained' : ''}">
+          <img class="carousel-image" src="${imageUrl(project.gallery[0])}" alt="${firstLabel} — ${project.title}">
           <button class="carousel-arrow carousel-arrow--prev" data-direction="-1" aria-label="Imagen anterior"><span aria-hidden="true">←</span></button>
           <button class="carousel-arrow carousel-arrow--next" data-direction="1" aria-label="Imagen siguiente"><span aria-hidden="true">→</span></button>
-          <div class="image-label">IMAGEN PROVISIONAL <span class="slide-count">01 / ${String(project.gallery.length).padStart(2, '0')}</span></div>
+          <div class="image-label"><span class="slide-label">${firstLabel}</span><span class="slide-count">01 / ${String(project.gallery.length).padStart(2, '0')}</span></div>
         </div>
         <div class="thumbnail-row">${thumbnails}</div>
       </section>
@@ -84,11 +85,7 @@
         <article>
           <p class="section-label">INFORMACIÓN</p>
           <dl class="project-facts">
-            <div><dt>Localización</dt><dd>${project.location}</dd></div>
-            <div><dt>Año</dt><dd>${project.year}</dd></div>
-            <div><dt>Estado</dt><dd>${project.status}</dd></div>
-            <div><dt>Superficie</dt><dd>${project.area}</dd></div>
-            <div><dt>Participación</dt><dd>${project.role}</dd></div>
+            ${projectFacts(project)}
           </dl>
         </article>
       </section>
@@ -102,6 +99,16 @@
     const previous = content.projects[(current - 1 + content.projects.length) % content.projects.length];
     const next = content.projects[(current + 1) % content.projects.length];
     return `<a href="#/projects/${previous.slug}">← ${previous.title}</a><a href="#/projects/${next.slug}">${next.title} →</a>`;
+  }
+
+  function projectFacts(project) {
+    const facts = project.facts ?? [
+      ['Localización', project.location],
+      ['Estado', project.status],
+      ['Superficie', project.area],
+      ['Participación', project.role],
+    ];
+    return facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join('');
   }
 
   function aboutView() {
@@ -151,6 +158,8 @@
     if (!carousel) return;
     let current = 0;
     const stageImage = carousel.querySelector('.carousel-image');
+    const stage = carousel.querySelector('.carousel-stage');
+    const label = carousel.querySelector('.slide-label');
     const counter = carousel.querySelector('.slide-count');
     const thumbs = [...carousel.querySelectorAll('.thumb')];
 
@@ -159,8 +168,11 @@
       stageImage.classList.add('is-changing');
       window.setTimeout(() => {
         stageImage.src = imageUrl(project.gallery[current]);
-        stageImage.alt = `Imagen provisional ${current + 1} de ${project.title}`;
-        counter.textContent = `0${current + 1} / 0${project.gallery.length}`;
+        const slideLabel = project.galleryLabels?.[current] ?? `IMAGEN ${current + 1}`;
+        stageImage.alt = `${slideLabel} — ${project.title}`;
+        label.textContent = slideLabel;
+        stage.classList.toggle('is-contained', project.galleryFit?.[current] === 'contain');
+        counter.textContent = `${String(current + 1).padStart(2, '0')} / ${String(project.gallery.length).padStart(2, '0')}`;
         thumbs.forEach((thumb, index) => {
           const active = index === current;
           thumb.classList.toggle('is-active', active);
