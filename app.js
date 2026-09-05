@@ -13,15 +13,20 @@
   function homeView() {
     return `
       <div class="home-index" aria-hidden="true">
-        <span>ARQ.</span><span>${content.profile.location.toUpperCase()}</span><span>EST. 2026</span>
+        <span>ARQ.</span><span>SEVILLA</span>
       </div>
       <section class="home-intro" aria-labelledby="home-title">
-        <p class="eyebrow">${content.profile.role.toUpperCase()}</p>
-        <h1 id="home-title">Jaime<br>Polaina</h1>
-        <p class="home-statement">Arquitectura serena, precisa y vinculada al lugar.<br>Obra nueva, rehabilitación e interiorismo.</p>
+        <div class="home-name">
+          <p class="eyebrow">${content.profile.role.toUpperCase()}</p>
+          <h1 id="home-title">Jaime<br>Polaina</h1>
+        </div>
+        <div class="home-copy">
+          <p class="home-statement">Del lugar a la materia.<br>De la idea al detalle.</p>
+          <p class="home-services">OBRA NUEVA <i>/</i> REHABILITACIÓN <i>/</i> INTERIORISMO</p>
+        </div>
       </section>
       <div class="home-footnote">
-        <span>ESTUDIO INDEPENDIENTE</span><span>PORTFOLIO — EDICIÓN PROVISIONAL</span>
+        <span class="home-arrow" aria-hidden="true">↓</span><span>PORTFOLIO</span>
       </div>`;
   }
 
