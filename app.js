@@ -138,15 +138,50 @@
   }
 
   function cvView() {
-    const entries = content.cv.map(([date, title, place]) => `
-      <div class="cv-row"><span>${date}</span><strong>${title}</strong><span>${place}</span></div>`).join('');
+    const experience = content.cv.experience.map((entry, index) => `
+      <article class="cv-entry">
+        <span class="cv-entry-index">${String(index + 1).padStart(2, '0')}</span>
+        <div class="cv-entry-body">
+          <header class="cv-entry-header">
+            <h3>${entry.company}<span>${entry.role}</span></h3>
+            <p>${entry.period}<br>${entry.location}</p>
+          </header>
+          <div class="cv-entry-copy">${entry.paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join('')}</div>
+        </div>
+      </article>`).join('');
+
+    const education = content.cv.education.map((entry) => `
+      <article class="cv-education-entry">
+        <div>
+          <h3>${entry.title}</h3>
+          <p class="cv-education-meta">${entry.institution} · ${entry.period}</p>
+        </div>
+        ${entry.description ? `<p>${entry.description}</p>` : ''}
+      </article>`).join('');
+
+    const software = content.cv.software.map((entry) => `
+      <div class="cv-software-group">
+        <h3>${entry.level}</h3>
+        <p>${entry.tools}</p>
+      </div>`).join('');
+
     return `
       <header class="page-heading page-heading--text">
-        <div><p class="eyebrow">TRAYECTORIA / PROVISIONAL</p><h1>Curriculum<br>Vitae</h1></div>
-        <p class="page-note">SELECCIÓN BREVE<br>DATOS POR COMPLETAR</p>
+        <div><p class="eyebrow">CURRICULUM VITAE</p><h1>Experiencia<br>y formación</h1></div>
+        <p class="page-note">JAIME POLAINA<br>ARQUITECTO</p>
       </header>
-      <section class="cv-list" aria-label="Currículum">${entries}</section>
-      <p class="cv-note">Este contenido funciona como estructura editable para incorporar formación, experiencia, premios, publicaciones y exposiciones.</p>`;
+      <section class="cv-section" aria-labelledby="cv-experience-title">
+        <header class="cv-section-heading"><span>01</span><h2 id="cv-experience-title">Experiencia profesional</h2></header>
+        <div class="cv-experience-list">${experience}</div>
+      </section>
+      <section class="cv-section" aria-labelledby="cv-education-title">
+        <header class="cv-section-heading"><span>02</span><h2 id="cv-education-title">Formación académica</h2></header>
+        <div class="cv-education-list">${education}</div>
+      </section>
+      <section class="cv-section" aria-labelledby="cv-software-title">
+        <header class="cv-section-heading"><span>03</span><h2 id="cv-software-title">Software</h2></header>
+        <div class="cv-software-grid">${software}</div>
+      </section>`;
   }
 
   function notFoundView() {

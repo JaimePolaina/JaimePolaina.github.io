@@ -161,10 +161,70 @@ window.PORTFOLIO_CONTENT = {
       action: 'Alcance de la actuación pendiente de definir.',
     },
   ],
-  cv: [
-    ['2026—', 'Práctica independiente', 'Palma / Madrid'],
-    ['2023—25', 'Colaboraciones en arquitectura y rehabilitación', 'España'],
-    ['2022', 'Máster habilitante en Arquitectura', 'Centro por completar'],
-    ['2021', 'Grado en Fundamentos de la Arquitectura', 'Centro por completar'],
-  ],
+  cv: {
+    experience: [
+      {
+        company: 'ESTUDIO INTERIORLAB',
+        role: 'Arquitecto',
+        period: 'Mayo 2026 – Actualidad',
+        location: 'Sevilla',
+        paragraphs: [
+          'Participación en el desarrollo arquitectónico y de interiorismo de proyectos residenciales, desde la definición del diseño hasta su resolución técnica y constructiva.',
+          'Desarrollo de <strong>Proyectos de Ejecución</strong>, elaborando plantas, alzados, secciones, detalles constructivos y documentación técnica mediante <strong>Revit, AutoCAD y SketchUp</strong>.',
+          'Diseño y desarrollo de soluciones de interiorismo y <strong>mobiliario a medida</strong>, abordando encuentros constructivos, selección y definición de materiales y resolución técnica de elementos para su correcta ejecución.',
+          'Coordinación directa con <strong>industriales, proveedores y talleres</strong> para el desarrollo, viabilidad y definición técnica de soluciones de proyecto.',
+          'Participación en reuniones de proyecto y resolución de incidencias y cuestiones técnicas surgidas durante las fases de desarrollo y ejecución.',
+        ],
+      },
+      {
+        company: 'BSA CONSULT',
+        role: 'Arquitecto Junior',
+        period: 'Noviembre 2025 – Mayo 2026',
+        location: 'Fuengirola',
+        paragraphs: [
+          'Participación en el desarrollo arquitectónico y técnico de <strong>proyectos residenciales de gran escala</strong>, trabajando dentro de un entorno colaborativo <strong>BIM/Revit</strong>.',
+          'Desarrollo de proyectos complejos de <strong>rehabilitación, ampliación y transformación de edificaciones existentes</strong>, resolviendo la integración entre la preexistencia y las nuevas intervenciones arquitectónicas.',
+          'Desarrollo y gestión de <strong>modelos BIM arquitectónicos en Revit</strong>, así como elaboración de documentación correspondiente a las distintas fases de proyecto.',
+          'Participación en el desarrollo de <strong>plantas, tipologías residenciales, secciones, fachadas y detalles constructivos</strong>, atendiendo a criterios de diseño, normativa y viabilidad técnica.',
+          'Aplicación y comprobación de normativa urbanística y arquitectónica durante el desarrollo de los proyectos.',
+        ],
+      },
+      {
+        company: 'VEGA 15 ARQUITECTURA Y URBANISMO',
+        role: 'Arquitecto Junior en prácticas',
+        period: 'Enero 2025 – Noviembre 2025',
+        location: 'Sevilla',
+        paragraphs: [
+          'Participación en el desarrollo de propuestas arquitectónicas para <strong>proyectos residenciales y terciarios</strong>, colaborando en las distintas fases de diseño y definición técnica.',
+          'Desarrollo de proyectos en fases de <strong>Anteproyecto, Proyecto Básico y Proyecto de Ejecución</strong>.',
+          'Elaboración de plantas, alzados, secciones, detalles y documentación gráfica y técnica de proyecto.',
+          'Apoyo en la resolución constructiva y técnica de los proyectos durante su desarrollo.',
+          'Participación en el <strong>seguimiento de obra</strong>, colaborando en la resolución de incidencias y cuestiones técnicas surgidas durante la fase de ejecución.',
+        ],
+      },
+    ],
+    education: [
+      {
+        title: 'Máster International BIM Management according to ISO 19650: Building Information Modelling',
+        institution: 'Universidad Pablo de Olavide',
+        period: 'Octubre 2025 – Actualidad',
+        description: 'Formación especializada en metodología <strong>BIM</strong>, gestión de la información y coordinación de proyectos conforme a los principios y estándares de la <strong>ISO 19650</strong>.',
+      },
+      {
+        title: 'Grado en Fundamentos de Arquitectura',
+        institution: 'Universidad de Sevilla',
+        period: '2019 – 2025',
+      },
+    ],
+    software: [
+      {
+        level: 'Nivel profesional',
+        tools: 'Revit · AutoCAD · SketchUp · V-Ray · CYPE Estructuras · CYPE MEP · Adobe InDesign',
+      },
+      {
+        level: 'Nivel intermedio',
+        tools: 'Archicad · Adobe Photoshop',
+      },
+    ],
+  },
 };
