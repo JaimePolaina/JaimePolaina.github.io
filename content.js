@@ -31,7 +31,7 @@ window.PORTFOLIO_CONTENT = {
     marbellaCover: './assets/marbella-01-portada.webp',
     marbellaSitePlan: './assets/marbella-02-planta-general.webp',
     marbellaBuilding: './assets/marbella-03-edificio.webp',
-    marbellaCommon123: './assets/marbella-04-zonas-comunes-bloques-123.png',
+    marbellaCommon123: './assets/marbella-04-zonas-comunes-bloques-123.png?v=recorte-20260916',
     marbellaGround123: './assets/marbella-05-planta-baja-bloques-123.png',
     marbellaTypologies: './assets/marbella-06-planta-tipo-tipologias.png',
     marbellaElevationA: './assets/marbella-07-alzado-tipo-a.png',
