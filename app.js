@@ -166,8 +166,8 @@
       </div>`).join('');
 
     return `
-      <header class="page-heading page-heading--text">
-        <div><p class="eyebrow">CURRICULUM VITAE</p><h1>Experiencia<br>y formación</h1></div>
+      <header class="page-heading page-heading--text page-heading--cv">
+        <div><p class="eyebrow">CURRICULUM VITAE</p></div>
         <p class="page-note">JAIME POLAINA<br>ARQUITECTO</p>
       </header>
       <section class="cv-section" aria-labelledby="cv-experience-title">

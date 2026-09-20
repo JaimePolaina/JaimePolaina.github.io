@@ -320,6 +320,7 @@ button { color: inherit; font: inherit; }
 }
 
 .page-heading--text { padding-bottom: clamp(4rem, 10vw, 10rem); }
+.page-heading--cv { padding-bottom: clamp(2.5rem, 6vw, 6rem); }
 .about-layout {
   display: grid;
   grid-template-columns: minmax(180px, .65fr) minmax(300px, 1.25fr) minmax(220px, .7fr);
