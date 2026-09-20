@@ -59,7 +59,7 @@
     const thumbnails = project.gallery.map((key, index) => `
       <button class="thumb ${index === 0 ? 'is-active' : ''} ${project.galleryFit?.[index] === 'contain' ? 'thumb--contained' : ''}" data-slide="${index}" aria-label="Ver ${project.galleryLabels?.[index]?.toLowerCase() ?? `imagen ${index + 1}`}" aria-pressed="${index === 0}">
         <img src="${imageUrl(key)}" alt="${project.galleryLabels?.[index] ?? `Miniatura ${index + 1}`} de ${project.title}">
-        <span>0${index + 1}</span>
+        <span>${String(index + 1).padStart(2, '0')}</span>
       </button>`).join('');
 
     const firstLabel = project.galleryLabels?.[0] ?? 'IMAGEN PROVISIONAL';
