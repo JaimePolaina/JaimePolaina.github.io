@@ -49,7 +49,7 @@
     return `
       <header class="page-heading">
         <div><p class="eyebrow">OBRA SELECCIONADA</p><h1>Projects</h1></div>
-        <p class="page-note">${content.projects.length} PROYECTOS / CONTENIDO PROVISIONAL<br>TEXTOS E IMÁGENES EDITABLES</p>
+        <p class="page-note">${content.projects.length} PROYECTOS / SELECCIÓN<br>ARQUITECTURA E INTERIORISMO</p>
       </header>
       <section class="project-grid" aria-label="Listado de proyectos">${cards}</section>
       <footer class="page-footer"><span>JAIME POLAINA ARQUITECTURA</span><a href="#/">VOLVER AL INICIO ↑</a></footer>`;
