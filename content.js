@@ -3,16 +3,17 @@ window.PORTFOLIO_CONTENT = {
   profile: {
     name: 'Jaime Polaina',
     role: 'Arquitecto',
-    location: 'Palma / Madrid',
+    location: 'Sevilla, España',
     statement: 'Arquitectura serena, precisa y vinculada al lugar. Obra nueva, rehabilitación e interiorismo.',
     about: [
       'Jaime Polaina desarrolla una práctica de arquitectura atenta a la materia, la proporción y la forma en que los espacios se habitan con el tiempo.',
       'El estudio trabaja entre distintas escalas —de la vivienda al espacio colectivo— con especial interés por la rehabilitación, los sistemas constructivos honestos y la relación con el paisaje.',
     ],
-    email: 'estudio@jaimepolaina.com',
+    email: 'jaime.pg.arq@gmail.com',
     instagram: '@jaimepolaina.arq',
   },
   images: {
+    contact: './assets/contact-jaime.png',
     bilbaoCover: './assets/bilbao-01-portada.webp',
     bilbaoPark: './assets/bilbao-02-parque.webp',
     bilbaoPlan01: './assets/bilbao-03-planta.png',

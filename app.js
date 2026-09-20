@@ -126,15 +126,30 @@
 
   function contactView() {
     return `
-      <header class="page-heading page-heading--text">
-        <div><p class="eyebrow">CONTACTO / PROVISIONAL</p><h1>Contact</h1></div>
+      <div class="contact-index" aria-hidden="true"><span>ARQ.</span><span>SEVILLA</span></div>
+      <header class="contact-heading">
+        <p class="eyebrow">CONTACTO</p>
+        <h1>Contact</h1>
       </header>
       <section class="contact-layout">
-        <p>Para proyectos, colaboraciones<br>y otras consultas:</p>
-        <a href="mailto:${content.profile.email}" class="contact-link">${content.profile.email}</a>
-        <div class="contact-meta"><span>${content.profile.location}</span><span>${content.profile.instagram}</span></div>
-        <p class="placeholder-copy">Datos de contacto provisionales. Sustituir antes de publicar la versión definitiva.</p>
-      </section>`;
+        <figure class="contact-portrait">
+          <img src="${content.images.contact}" alt="Retrato de Jaime Polaina" />
+        </figure>
+        <div class="contact-panel">
+          <p class="contact-intro">Si crees que mi perfil puede encajar en tu<br>equipo, estaré encantado de hablar.</p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <span>EMAIL</span>
+              <a href="mailto:${content.profile.email}">${content.profile.email}</a>
+            </div>
+            <div class="contact-item">
+              <span>UBICACIÓN</span>
+              <p>${content.profile.location}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="contact-bottom-rule" aria-hidden="true"></div>`;
   }
 
   function cvView() {
@@ -166,8 +181,8 @@
       </div>`).join('');
 
     return `
-      <header class="page-heading page-heading--text page-heading--cv">
-        <div><p class="eyebrow">CURRICULUM VITAE</p></div>
+      <header class="page-heading page-heading--text">
+        <div><p class="eyebrow">CURRICULUM VITAE</p><h1>Experiencia<br>y formación</h1></div>
         <p class="page-note">JAIME POLAINA<br>ARQUITECTO</p>
       </header>
       <section class="cv-section" aria-labelledby="cv-experience-title">
@@ -262,7 +277,7 @@
       pageClass = 'text-page';
     } else if (path === '/contact') {
       html = contactView();
-      pageClass = 'text-page';
+      pageClass = 'text-page contact-page';
     } else if (path === '/cv') {
       html = cvView();
       pageClass = 'text-page';

@@ -320,7 +320,6 @@ button { color: inherit; font: inherit; }
 }
 
 .page-heading--text { padding-bottom: clamp(4rem, 10vw, 10rem); }
-.page-heading--cv { padding-bottom: clamp(2.5rem, 6vw, 6rem); }
 .about-layout {
   display: grid;
   grid-template-columns: minmax(180px, .65fr) minmax(300px, 1.25fr) minmax(220px, .7fr);
@@ -336,17 +335,22 @@ button { color: inherit; font: inherit; }
 .about-mark { align-self: start; min-height: 250px; display: grid; place-items: center; position: relative; border-left: 1px solid var(--rule); font: clamp(6rem, 13vw, 12rem)/1 var(--serif); letter-spacing: -.1em; color: var(--rule); }
 .about-mark i { position: absolute; width: 70%; border-top: 1px solid var(--accent); transform: rotate(-42deg); }
 
-.contact-layout {
-  max-width: 1100px;
-  margin-left: auto;
-  padding-top: 1.3rem;
-  border-top: 1px solid var(--ink);
-}
-
-.contact-layout > p:first-child { margin: 0 0 3rem; font: clamp(1.35rem, 2.4vw, 2.15rem)/1.4 var(--serif); }
-.contact-link { display: inline-block; border-bottom: 1px solid var(--accent); font: clamp(2rem, 5.5vw, 5.5rem)/1.15 var(--serif); letter-spacing: -.045em; }
-.contact-meta { display: flex; gap: clamp(2rem, 8vw, 8rem); margin-top: 5rem; padding-top: 1rem; border-top: 1px solid var(--rule); font-size: .74rem; letter-spacing: .11em; text-transform: uppercase; }
-.contact-layout .placeholder-copy { margin-top: 4rem; }
+.contact-page { padding-top: 116px; }
+.contact-index { display: flex; justify-content: space-between; color: var(--muted); font-size: .67rem; letter-spacing: .14em; }
+.contact-heading { margin-top: clamp(3rem, 5vw, 5.25rem); }
+.contact-heading .eyebrow { margin-bottom: .45rem; }
+.contact-heading h1 { margin: 0; font: 400 clamp(4.5rem, 7.2vw, 7.5rem)/.88 var(--serif); letter-spacing: -.065em; }
+.contact-layout { display: grid; grid-template-columns: minmax(0, 2.05fr) minmax(280px, .95fr); gap: clamp(2.75rem, 5.2vw, 6.5rem); align-items: start; margin-top: clamp(1.7rem, 2.4vw, 2.75rem); }
+.contact-portrait { aspect-ratio: 1.52 / 1; margin: 0; overflow: hidden; background: #ddd8cf; }
+.contact-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.contact-panel { min-height: 100%; padding-top: clamp(2.75rem, 4.5vw, 5rem); border-top: 1px solid var(--ink); }
+.contact-intro { margin: 0; color: var(--muted); font: clamp(1.05rem, 1.45vw, 1.45rem)/1.45 var(--serif); }
+.contact-details { margin-top: clamp(4.25rem, 7vw, 8rem); border-bottom: 1px solid var(--rule); }
+.contact-item { padding: 1.25rem 0 1.65rem; border-top: 1px solid var(--rule); }
+.contact-item > span { display: block; margin-bottom: .25rem; color: var(--muted); font-size: .66rem; letter-spacing: .08em; }
+.contact-item a { font: clamp(1.55rem, 2.25vw, 2.5rem)/1.15 var(--serif); letter-spacing: -.035em; }
+.contact-item p { margin: 0; font: 1rem/1.45 var(--serif); }
+.contact-bottom-rule { margin-top: clamp(3rem, 5vw, 5.5rem); border-top: 1px solid var(--ink); }
 
 .cv-section { margin-top: clamp(4.5rem, 9vw, 8rem); border-top: 1px solid var(--ink); }
 .cv-section:first-of-type { margin-top: 0; }
@@ -395,7 +399,12 @@ button { color: inherit; font: inherit; }
   .project-copy article { grid-template-columns: 1fr; gap: 1.5rem; }
   .about-layout { grid-template-columns: 1fr; }
   .about-mark { display: none; }
-  .contact-link { font-size: clamp(1.65rem, 7.7vw, 3.2rem); }
+  .contact-page { padding-top: 106px; }
+  .contact-heading { margin-top: 2.75rem; }
+  .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .contact-portrait { aspect-ratio: 3 / 2; }
+  .contact-panel { padding-top: 2.25rem; }
+  .contact-details { margin-top: 3.75rem; }
   .cv-entry-header { grid-template-columns: 1fr; gap: 1rem; }
   .cv-entry-header > p { text-align: left; }
   .cv-education-entry { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -411,7 +420,9 @@ button { color: inherit; font: inherit; }
   .project-facts div { grid-template-columns: 1fr; gap: .15rem; }
   .project-pagination { font-size: 1rem; }
   .project-pagination a:last-child { text-align: right; }
-  .contact-meta { flex-direction: column; gap: .75rem; }
+  .contact-heading h1 { font-size: clamp(4.25rem, 21vw, 6.25rem); }
+  .contact-intro br { display: none; }
+  .contact-item a { font-size: clamp(1.45rem, 7vw, 2rem); }
   .cv-section-heading, .cv-entry { grid-template-columns: 2rem 1fr; gap: 1rem; }
   .cv-software-grid { grid-template-columns: 1fr; }
   .cv-software-group { min-height: 0; padding: 2.2rem 0; }
