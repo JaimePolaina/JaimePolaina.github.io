@@ -13,7 +13,7 @@ window.PORTFOLIO_CONTENT = {
     instagram: '@jaimepolaina.arq',
   },
   images: {
-    contact: './assets/contact-jaime.png',
+    contact: './contact-jaime.png',
     bilbaoCover: './assets/bilbao-01-portada.webp',
     bilbaoPark: './assets/bilbao-02-parque.webp',
     bilbaoPlan01: './assets/bilbao-03-planta.png',
