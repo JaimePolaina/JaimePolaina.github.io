@@ -143,6 +143,10 @@
               <a href="mailto:${content.profile.email}">${content.profile.email}</a>
             </div>
             <div class="contact-item">
+              <span>TELÉFONO</span>
+              <a href="tel:+34662695066">${content.profile.phone}</a>
+            </div>
+            <div class="contact-item">
               <span>UBICACIÓN</span>
               <p>${content.profile.location}</p>
             </div>

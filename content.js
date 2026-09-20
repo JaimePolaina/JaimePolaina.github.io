@@ -10,6 +10,7 @@ window.PORTFOLIO_CONTENT = {
       'El estudio trabaja entre distintas escalas —de la vivienda al espacio colectivo— con especial interés por la rehabilitación, los sistemas constructivos honestos y la relación con el paisaje.',
     ],
     email: 'jaime.pg.arq@gmail.com',
+    phone: '+34 662 69 50 66',
     instagram: '@jaimepolaina.arq',
   },
   images: {
