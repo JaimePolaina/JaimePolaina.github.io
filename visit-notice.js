@@ -3,6 +3,10 @@
   if (!endpoint || navigator.webdriver) return;
 
   const storageKey = 'portfolio-visit-notice-sent';
+  const knownPages = new Set([
+    '/', '/projects', '/projects/bilbao', '/projects/marbella',
+    '/projects/cedaceros-9', '/projects/castellana-a-b', '/about', '/contact', '/cv',
+  ]);
 
   function sendOnce() {
     if (document.visibilityState !== 'visible') return;
@@ -16,7 +20,10 @@
     }
 
     try {
-      fetch(endpoint, {
+      const path = window.location.hash.slice(1).replace(/\/+$/, '') || '/';
+      const url = new URL(endpoint);
+      url.searchParams.set('page', knownPages.has(path) ? path : '/other');
+      fetch(url, {
         method: 'POST',
         mode: 'cors',
         credentials: 'omit',

@@ -9,6 +9,7 @@ const endpoint = 'https://portfolio-visit-notice.example.workers.dev/visit';
 function loadPage(storage, calls, { route = '#/', fail = false, visible = 'visible', bot = false } = {}) {
   const listeners = new Map();
   const context = {
+    URL,
     window: { PORTFOLIO_VISIT_ENDPOINT: endpoint, location: { hash: route } },
     navigator: { webdriver: bot },
     document: {
@@ -34,10 +35,17 @@ test('direct project entry sends once for a browser session', () => {
   loadPage(storage, calls, { route: '#/projects/bilbao' });
   loadPage(storage, calls, { route: '#/projects/cedaceros' });
   assert.equal(calls.length, 1);
-  assert.equal(calls[0].url, endpoint);
+  assert.equal(calls[0].url.origin + calls[0].url.pathname, endpoint);
+  assert.equal(calls[0].url.searchParams.get('page'), '/projects/bilbao');
   assert.equal(calls[0].options.method, 'POST');
   assert.equal(calls[0].options.credentials, 'omit');
   assert.equal(calls[0].options.body, undefined);
+});
+
+test('an unknown route is reduced to a fixed generic page', () => {
+  const calls = [];
+  loadPage(new Map(), calls, { route: '#/projects/unknown?company=secret' });
+  assert.equal(calls[0].url.searchParams.get('page'), '/other');
 });
 
 test('a new session can send again', () => {
