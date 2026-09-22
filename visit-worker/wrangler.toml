@@ -1,0 +1,17 @@
+name = "portfolio-visit-notice"
+main = "worker.js"
+compatibility_date = "2026-09-22"
+workers_dev = true
+no_bundle = true
+find_additional_modules = false
+
+[observability]
+enabled = false
+
+[[ratelimits]]
+name = "VISIT_RATE_LIMITER"
+namespace_id = "1001"
+
+[ratelimits.simple]
+limit = 10
+period = 60
