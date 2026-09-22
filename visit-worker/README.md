@@ -1,6 +1,6 @@
 # Aviso de visita
 
-Este Worker acepta únicamente `POST /visit` desde `https://jaimepolaina.github.io`, limita los envíos a 10 por minuto y manda un mensaje fijo a `jaime.pg.arq@gmail.com`. No procesa el cuerpo, identificador ni ruta de la petición. El límite es por ubicación de Cloudflare; la cabecera `Origin` puede falsificarse fuera del navegador, así que son protecciones básicas, no autenticación.
+Este Worker acepta únicamente `POST /visit` desde `https://jaimepolaina.github.io`, limita los envíos a 10 por minuto y manda un mensaje fijo a `jaime.pg.arq@gmail.com`. Acepta solo una ruta del portfolio incluida en una lista cerrada, para indicar la página inicial de la sesión. El correo incluye ciudad y país aproximados derivados de Cloudflare; pueden ser inexactos y no identifican al estudio. No procesa el cuerpo, la dirección IP ni otros identificadores del visitante. El límite es por ubicación de Cloudflare; la cabecera `Origin` puede falsificarse fuera del navegador, así que son protecciones básicas, no autenticación.
 
 ## Configuración actual
 

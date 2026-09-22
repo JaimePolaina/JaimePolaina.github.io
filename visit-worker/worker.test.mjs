@@ -6,10 +6,14 @@ const originalFetch = globalThis.fetch;
 after(() => { globalThis.fetch = originalFetch; });
 
 const origin = 'https://jaimepolaina.github.io';
-const request = (method = 'POST', requestOrigin = origin, body) => new Request(
-  'https://portfolio-visit-notice.example.workers.dev/visit',
-  { method, headers: { Origin: requestOrigin }, body },
-);
+const request = (method = 'POST', requestOrigin = origin, body) => {
+  const incoming = new Request(
+    'https://portfolio-visit-notice.example.workers.dev/visit?page=%2Fprojects%2Fbilbao',
+    { method, headers: { Origin: requestOrigin }, body },
+  );
+  Object.defineProperty(incoming, 'cf', { value: { city: 'Madrid', country: 'ES' } });
+  return incoming;
+};
 const env = (success = true) => ({
   RESEND_API_KEY: 'test-only-secret',
   VISIT_RATE_LIMITER: { limit: async () => ({ success }) },
@@ -28,7 +32,7 @@ test('sends a fixed notice to the only allowed recipient', async () => {
   const mail = JSON.parse(outbound.options.body);
   assert.deepEqual(mail.to, ['jaime.pg.arq@gmail.com']);
   assert.equal(mail.subject, 'Portfolio abierto');
-  assert.match(mail.text, /^Se ha registrado una nueva visita a tu portfolio\.\n\nFecha: \d{2}\/\d{2}\/\d{4}\nHora: \d{2}:\d{2} \(Europe\/Madrid\)$/);
+  assert.match(mail.text, /^Se ha registrado una nueva visita a tu portfolio\.\n\nFecha: \d{2}\/\d{2}\/\d{4}\nHora: \d{2}:\d{2} \(Europe\/Madrid\)\nPágina inicial: Bilbao\nCiudad y país aproximados: Madrid, ES$/);
   assert.equal(outbound.options.headers.Authorization, 'Bearer test-only-secret');
 });
 
@@ -38,6 +42,7 @@ test('rejects other origins and methods without sending email', async () => {
   assert.equal((await worker.fetch(request('POST', 'https://evil.example'), env())).status, 403);
   assert.equal((await worker.fetch(request('GET'), env())).status, 405);
   assert.equal((await worker.fetch(new Request('https://example.workers.dev/visit?recipient=other@example.com', { method: 'POST', headers: { Origin: origin } }), env())).status, 400);
+  assert.equal((await worker.fetch(new Request('https://example.workers.dev/visit?page=%2Fprojects%2Funknown', { method: 'POST', headers: { Origin: origin } }), env())).status, 400);
   assert.equal((await worker.fetch(new Request('https://example.workers.dev/other', { method: 'POST', headers: { Origin: origin } }), env())).status, 404);
   assert.equal((await worker.fetch(request('OPTIONS'), env())).status, 204);
   assert.equal(calls, 0);
