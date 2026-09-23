@@ -16,6 +16,7 @@ window.PORTFOLIO_CONTENT = {
   images: {
     contact: './contact-jaime.png',
     bilbaoCover: './assets/bilbao-01-portada.webp',
+    bilbaoDiagram: './assets/bilbao-02-diagrama.png',
     bilbaoPark: './assets/bilbao-02-parque.webp',
     bilbaoPlan01: './assets/bilbao-03-planta.png',
     bilbaoPlan02: './assets/bilbao-04-planta.png',

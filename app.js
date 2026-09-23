@@ -50,7 +50,8 @@
   }
 
   function figure(key, label, className = '') {
-    return `<figure class="story-figure ${className}"><img src="${imageUrl(key)}" alt="${label}" loading="lazy"><figcaption>${label}</figcaption></figure>`;
+    const caption = label ? `<figcaption>${label}</figcaption>` : '';
+    return `<figure class="story-figure ${className}"><img src="${imageUrl(key)}" alt="${label || key}" loading="lazy">${caption}</figure>`;
   }
 
   function textBlock(number, title, text) {
@@ -61,7 +62,10 @@
     return `
       <section class="story-split story-split--copy-left reveal">
         ${textBlock('01.01', 'Preexistencia<br>y contexto', 'La intervención conserva la antigua fábrica e incorpora dos plantas retranqueadas, relacionando la arquitectura existente con una nueva organización residencial.')}
-        ${figure('bilbaoPark', 'VISTA DESDE EL PARQUE')}
+        <div class="story-visual-stack">
+          ${figure('bilbaoDiagram', '', 'story-figure--drawing')}
+          ${figure('bilbaoPark', 'VISTA DESDE EL PARQUE')}
+        </div>
       </section>
       <section class="story-plan reveal">
         <header><span class="story-number">01.02</span><h2>Organización residencial</h2><p>Cinco portales · 144 viviendas · patios interiores</p></header>
