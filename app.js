@@ -62,18 +62,16 @@
     return `
       <section class="story-split story-split--copy-left reveal">
         ${textBlock('01.01', 'Preexistencia<br>y contexto', 'La intervención conserva la antigua fábrica e incorpora dos plantas retranqueadas, relacionando la arquitectura existente con una nueva organización residencial.')}
-        <div class="story-visual-stack">
-          ${figure('bilbaoDiagram', '', 'story-figure--drawing')}
-          ${figure('bilbaoPark', 'VISTA DESDE EL PARQUE')}
-        </div>
+        ${figure('bilbaoDiagram', '', 'story-figure--drawing')}
+        ${figure('bilbaoPark', 'VISTA DESDE EL PARQUE', 'story-figure--park-below')}
       </section>
       <section class="story-plan reveal">
         <header><span class="story-number">01.02</span><h2>Organización residencial</h2><p>Cinco portales · 144 viviendas · patios interiores</p></header>
-        ${figure('bilbaoPlan01', 'PLANTA GENERAL', 'story-figure--drawing')}
+        ${figure('bilbaoPlan01', 'PLANTA PRIMERA A TERCERA', 'story-figure--drawing')}
       </section>
       <section class="story-duo reveal">
         ${figure('bilbaoSection', 'SECCIÓN LONGITUDINAL', 'story-figure--drawing')}
-        ${figure('bilbaoElevation', 'ALZADO', 'story-figure--drawing')}
+        ${figure('bilbaoCrossSection', 'SECCIÓN TRANSVERSAL', 'story-figure--drawing')}
       </section>
       <section class="story-split story-split--image-left reveal">
         ${figure('bilbaoDetail', 'DETALLE DE FACHADA', 'story-figure--drawing story-figure--portrait')}
