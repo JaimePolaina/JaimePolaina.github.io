@@ -1,19 +1,17 @@
-# Aviso de visita
+# Aviso de visita humana probable
 
-Este Worker acepta únicamente `POST /visit` desde `https://jaimepolaina.github.io`, limita los envíos a 10 por minuto y manda un mensaje fijo a `jaime.pg.arq@gmail.com`. Acepta solo una ruta del portfolio incluida en una lista cerrada, para indicar la página inicial de la sesión. El correo incluye ciudad y país aproximados derivados de Cloudflare; pueden ser inexactos y no identifican al estudio. No procesa el cuerpo, la dirección IP ni otros identificadores del visitante. El límite es por ubicación de Cloudflare; la cabecera `Origin` puede falsificarse fuera del navegador, así que son protecciones básicas, no autenticación.
+El navegador solicita el aviso cuando la página ha permanecido visible durante siete segundos, el visitante ha interactuado y Cloudflare Turnstile ha validado la sesión. El Worker vuelve a validar el token antes de mandar el correo y solo acepta la página inicial de una lista cerrada.
 
-## Configuración actual
+El correo incluye la página inicial y la ciudad y el país aproximados derivados de Cloudflare. Esta ubicación puede ser inexacta y no identifica por sí sola a una persona ni a un estudio. No se guarda ni se envía la dirección IP.
 
-El Worker está publicado en `https://portfolio-visit-notice.jaime-pg-arq.workers.dev/visit`. La clave de Resend está guardada como secreto `RESEND_API_KEY` de Cloudflare. La observabilidad del Worker está desactivada para evitar registros de solicitudes.
+## Configuración
 
-## Volver a desplegar
+- `RESEND_API_KEY`: secreto de Resend.
+- `TURNSTILE_SECRET_KEY`: secreto privado del widget de Turnstile.
+- `VISIT_RATE_LIMITER`: límite de diez intentos por minuto.
+- `PORTFOLIO_TURNSTILE_SITE_KEY` en `visit-config.js`: clave pública del widget.
 
-1. En esta carpeta ejecuta `npm install` y `npx wrangler login` si hace falta.
-2. Ejecuta `npx wrangler deploy` para publicar una versión nueva del código.
-3. Si cambias la clave de Resend, ejecuta `npx wrangler secret put RESEND_API_KEY` e introdúcela en el prompt, nunca en un archivo del repositorio.
-4. La URL pública está configurada en `visit-config.js`. Abre `https://jaimepolaina.github.io` en una ventana privada para generar una sesión nueva y comprueba la bandeja de entrada de `jaime.pg.arq@gmail.com`.
-
-La dirección de destino y el contenido del correo están fijados en `worker.js`; el navegador no puede cambiarlos. El único secreto es `RESEND_API_KEY`, guardado en Cloudflare. El aviso falla en silencio y la página continúa funcionando. Los navegadores que no ejecutan JavaScript no generan avisos.
+La observabilidad y los registros de solicitudes del Worker permanecen desactivados.
 
 ## Pruebas locales
 

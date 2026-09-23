@@ -1,6 +1,7 @@
 const ALLOWED_ORIGIN = 'https://jaimepolaina.github.io';
 const RECIPIENT = 'jaime.pg.arq@gmail.com';
 const SENDER = 'Portfolio <onboarding@resend.dev>';
+const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 const PAGE_NAMES = new Map([
   ['/', 'Inicio'],
   ['/projects', 'Proyectos'],
@@ -15,13 +16,11 @@ const PAGE_NAMES = new Map([
 ]);
 
 function reply(status, origin) {
-  const headers = {
-    'Cache-Control': 'no-store',
-    Vary: 'Origin',
-  };
+  const headers = { 'Cache-Control': 'no-store', Vary: 'Origin' };
   if (origin === ALLOWED_ORIGIN) {
     headers['Access-Control-Allow-Origin'] = ALLOWED_ORIGIN;
     headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS';
+    headers['Access-Control-Allow-Headers'] = 'Content-Type';
   }
   return new Response(null, { status, headers });
 }
@@ -29,12 +28,8 @@ function reply(status, origin) {
 function madridDateTime(date) {
   const parts = new Intl.DateTimeFormat('es-ES', {
     timeZone: 'Europe/Madrid',
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hourCycle: 'h23',
+    day: '2-digit', month: '2-digit', year: 'numeric',
+    hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
   }).formatToParts(date);
   const value = (type) => parts.find((part) => part.type === type).value;
   return {
@@ -49,6 +44,22 @@ function approximateLocation(cf) {
   return [city, country].filter(Boolean).join(', ') || 'No disponible';
 }
 
+async function verifiedByTurnstile(token, secret) {
+  try {
+    const response = await fetch(TURNSTILE_VERIFY_URL, {
+      method: 'POST',
+      body: new URLSearchParams({ secret, response: token }),
+    });
+    if (!response.ok) return false;
+    const result = await response.json();
+    return result.success === true
+      && result.hostname === 'jaimepolaina.github.io'
+      && result.action === 'portfolio_visit';
+  } catch {
+    return false;
+  }
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin');
@@ -57,14 +68,30 @@ export default {
     if (origin !== ALLOWED_ORIGIN) return reply(403, origin);
     if (request.method === 'OPTIONS') return reply(204, origin);
     if (request.method !== 'POST') return reply(405, origin);
-    const parameters = [...url.searchParams];
-    if (parameters.length > 1 || (parameters.length === 1 && parameters[0][0] !== 'page')) return reply(400, origin);
-    const page = parameters.length ? PAGE_NAMES.get(parameters[0][1]) : 'No indicada';
-    if (!page) return reply(400, origin);
-    if (!env.RESEND_API_KEY || !env.VISIT_RATE_LIMITER) return reply(503, origin);
+
+    // Ignore the previous cached client instead of treating its page load as human.
+    if (url.searchParams.has('page')) return reply(204, origin);
+    if (url.search) return reply(400, origin);
+    const contentType = request.headers.get('Content-Type') || '';
+    if (!contentType.startsWith('application/x-www-form-urlencoded')) return reply(400, origin);
+
+    const rawBody = await request.text();
+    if (rawBody.length > 4096) return reply(400, origin);
+    const entries = [...new URLSearchParams(rawBody)];
+    if (entries.length !== 2 || entries.filter(([key]) => key === 'page').length !== 1
+      || entries.filter(([key]) => key === 'token').length !== 1) return reply(400, origin);
+    const fields = Object.fromEntries(entries);
+    const page = PAGE_NAMES.get(fields.page);
+    if (!page || typeof fields.token !== 'string' || fields.token.length < 10 || fields.token.length > 2048) {
+      return reply(400, origin);
+    }
+    if (!env.RESEND_API_KEY || !env.TURNSTILE_SECRET_KEY || !env.VISIT_RATE_LIMITER) {
+      return reply(503, origin);
+    }
 
     const { success } = await env.VISIT_RATE_LIMITER.limit({ key: 'portfolio-visits' });
     if (!success) return reply(429, origin);
+    if (!await verifiedByTurnstile(fields.token, env.TURNSTILE_SECRET_KEY)) return reply(403, origin);
 
     const { date, time } = madridDateTime(new Date());
     const location = approximateLocation(request.cf);
@@ -78,8 +105,8 @@ export default {
         body: JSON.stringify({
           from: SENDER,
           to: [RECIPIENT],
-          subject: 'Portfolio abierto',
-          text: `Se ha registrado una nueva visita a tu portfolio.\n\nFecha: ${date}\nHora: ${time} (Europe/Madrid)\nPágina inicial: ${page}\nCiudad y país aproximados: ${location}`,
+          subject: 'Visita humana probable al portfolio',
+          text: `Se ha registrado una visita humana probable a tu portfolio.\n\nFecha: ${date}\nHora: ${time} (Europe/Madrid)\nPágina inicial: ${page}\nCiudad y país aproximados: ${location}\nValidación: interacción, tiempo visible y comprobación de Cloudflare`,
         }),
       });
       return reply(sent.ok ? 204 : 502, origin);
