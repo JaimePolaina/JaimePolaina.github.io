@@ -65,7 +65,7 @@ window.PORTFOLIO_CONTENT = {
     {
       slug: 'bilbao',
       number: '01',
-      title: 'Bilbao',
+      title: 'Calle Isasi',
       subtitle: 'Rehabilitación y ampliación residencial',
       location: 'Bilbao, Bizkaia',
       status: 'Proyecto Básico + Proyecto de Ejecución',
