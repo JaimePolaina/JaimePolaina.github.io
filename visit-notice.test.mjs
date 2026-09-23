@@ -6,70 +6,108 @@ import { runInNewContext } from 'node:vm';
 const source = readFileSync(new URL('./visit-notice.js', import.meta.url), 'utf8');
 const endpoint = 'https://portfolio-visit-notice.example.workers.dev/visit';
 
-function loadPage(storage, calls, { route = '#/', fail = false, visible = 'visible', bot = false } = {}) {
+function loadPage(storage = new Map(), { route = '#/', visible = 'visible', bot = false } = {}) {
   const listeners = new Map();
+  const timers = [];
+  const calls = [];
+  const addListener = (event, callback) => {
+    if (!listeners.has(event)) listeners.set(event, []);
+    listeners.get(event).push(callback);
+  };
+  const element = () => ({
+    style: {}, dataset: {}, setAttribute() {}, addEventListener: addListener, remove() {},
+  });
   const context = {
-    URL,
-    window: { PORTFOLIO_VISIT_ENDPOINT: endpoint, location: { hash: route } },
+    URL, URLSearchParams,
+    window: {
+      PORTFOLIO_VISIT_ENDPOINT: endpoint,
+      PORTFOLIO_TURNSTILE_SITE_KEY: 'test-site-key',
+      location: { hash: route },
+      turnstile: {
+        render(_container, options) { context.turnstileOptions = options; return 'widget-id'; },
+        execute(widgetId) {
+          assert.equal(widgetId, 'widget-id');
+          context.turnstileOptions.callback('verified-test-token');
+        },
+      },
+    },
     navigator: { webdriver: bot },
     document: {
       visibilityState: visible,
-      addEventListener: (event, callback) => listeners.set(event, callback),
+      addEventListener: addListener,
+      createElement: element,
+      querySelector: () => null,
+      body: { append() {} },
+      head: { append() {} },
     },
     sessionStorage: {
       getItem: (key) => storage.get(key),
       setItem: (key, value) => storage.set(key, value),
     },
-    fetch: (url, options) => {
-      calls.push({ url, options });
-      return fail ? Promise.reject(new Error('offline')) : Promise.resolve({ ok: true });
-    },
+    setTimeout(callback) { timers.push(callback); return timers.length; },
+    clearTimeout() {},
+    fetch: async (url, options) => { calls.push({ url, options }); return { ok: true }; },
   };
   runInNewContext(source, context);
-  return { context, listeners };
+  return {
+    context, calls, storage,
+    fire(event, values = {}) { for (const callback of listeners.get(event) || []) callback(values); },
+    elapseVisibleTime() { timers.at(-1)?.(); },
+  };
 }
 
-test('direct project entry sends once for a browser session', () => {
-  const storage = new Map();
-  const calls = [];
-  loadPage(storage, calls, { route: '#/projects/bilbao' });
-  loadPage(storage, calls, { route: '#/projects/cedaceros' });
-  assert.equal(calls.length, 1);
-  assert.equal(calls[0].url.origin + calls[0].url.pathname, endpoint);
-  assert.equal(calls[0].url.searchParams.get('page'), '/projects/bilbao');
-  assert.equal(calls[0].options.method, 'POST');
-  assert.equal(calls[0].options.credentials, 'omit');
-  assert.equal(calls[0].options.body, undefined);
-});
-
-test('an unknown route is reduced to a fixed generic page', () => {
-  const calls = [];
-  loadPage(new Map(), calls, { route: '#/projects/unknown?company=secret' });
-  assert.equal(calls[0].url.searchParams.get('page'), '/other');
-});
-
-test('a new session can send again', () => {
-  const calls = [];
-  loadPage(new Map(), calls);
-  loadPage(new Map(), calls);
-  assert.equal(calls.length, 2);
-});
-
-test('failed mail service and obvious automation do not affect the page', async () => {
-  const calls = [];
-  const storage = new Map();
-  loadPage(storage, calls, { fail: true });
+test('requires visible time and a trusted interaction before sending', async () => {
+  const page = loadPage(new Map(), { route: '#/projects/bilbao' });
+  assert.equal(page.calls.length, 0);
+  page.elapseVisibleTime();
+  assert.equal(page.calls.length, 0);
+  page.fire('pointerdown', { isTrusted: true });
   await Promise.resolve();
-  loadPage(storage, calls);
-  loadPage(new Map(), calls, { bot: true });
-  assert.equal(calls.length, 1);
+  assert.equal(page.calls.length, 1);
+  assert.equal(page.calls[0].url, endpoint);
+  assert.equal(page.calls[0].options.method, 'POST');
+  assert.equal(page.calls[0].options.body.get('page'), '/projects/bilbao');
+  assert.equal(page.calls[0].options.body.get('token'), 'verified-test-token');
 });
 
-test('a background page waits until it becomes visible', () => {
-  const calls = [];
-  const { context, listeners } = loadPage(new Map(), calls, { visible: 'hidden' });
-  assert.equal(calls.length, 0);
-  context.document.visibilityState = 'visible';
-  listeners.get('visibilitychange')();
-  assert.equal(calls.length, 1);
+test('an unknown route is reduced to a fixed generic page', async () => {
+  const page = loadPage(new Map(), { route: '#/projects/unknown?company=secret' });
+  page.fire('scroll', { isTrusted: true });
+  page.elapseVisibleTime();
+  await Promise.resolve();
+  assert.equal(page.calls[0].options.body.get('page'), '/other');
+});
+
+test('one successful notice is allowed in each browser session', async () => {
+  const storage = new Map();
+  const first = loadPage(storage);
+  first.fire('keydown', { isTrusted: true });
+  first.elapseVisibleTime();
+  await new Promise(setImmediate);
+  const second = loadPage(storage);
+  second.fire('keydown', { isTrusted: true });
+  second.elapseVisibleTime();
+  assert.equal(first.calls.length, 1);
+  assert.equal(second.calls.length, 0);
+});
+
+test('rejects synthetic interaction and obvious automation', () => {
+  const page = loadPage();
+  page.elapseVisibleTime();
+  page.fire('pointerdown', { isTrusted: false });
+  const bot = loadPage(new Map(), { bot: true });
+  assert.equal(page.calls.length, 0);
+  assert.equal(bot.calls.length, 0);
+  assert.equal(bot.context.turnstileOptions, undefined);
+});
+
+test('visible-time qualification resets while the page is hidden', async () => {
+  const page = loadPage(new Map(), { visible: 'hidden' });
+  page.fire('touchstart', { isTrusted: true });
+  assert.equal(page.calls.length, 0);
+  page.context.document.visibilityState = 'visible';
+  page.fire('visibilitychange');
+  page.elapseVisibleTime();
+  await Promise.resolve();
+  assert.equal(page.calls.length, 1);
 });
