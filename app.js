@@ -18,7 +18,7 @@
   }
 
   function homeProject(project, index) {
-    const layouts = ['image-left', 'image-right', 'image-wide', 'image-left'];
+    const layouts = ['image-left', 'image-right'];
     return `
       <article class="home-project home-project--${layouts[index % layouts.length]} reveal">
         <div class="home-project__meta">
@@ -33,7 +33,6 @@
         <a class="home-project__image" href="#/projects/${project.slug}" aria-label="Ver proyecto ${project.title}">
           <img src="${imageUrl(project.cover)}" alt="${project.coverLabel} — ${project.title}" loading="${index < 2 ? 'eager' : 'lazy'}">
         </a>
-        ${index >= 2 ? `<p class="home-project__strap"><span>${project.number}</span>${project.title.toUpperCase()} · ${project.location.toUpperCase()}</p>` : ''}
       </article>`;
   }
 

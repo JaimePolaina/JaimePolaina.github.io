@@ -72,21 +72,11 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
 .project-type { margin: 44px 0 0; font-size: .95rem; line-height: 1.5; }
 .project-link { margin-top: 30px; padding-bottom: 5px; border-bottom: 1px solid var(--rule); font-size: .69rem; letter-spacing: .16em; }
 .project-link span { margin-left: 5px; font-size: 1rem; }
-.home-project__strap { display: none; margin: 0; font-size: .66rem; letter-spacing: .14em; }
-.home-project__strap span { margin-right: 32px; color: var(--accent); font: 400 1rem/1 var(--serif); letter-spacing: 0; }
 
 .home-project--image-left .home-project__image { grid-column: 1 / span 8; grid-row: 1; aspect-ratio: 1.86 / 1; }
 .home-project--image-left .home-project__meta { grid-column: 10 / -1; grid-row: 1; padding-top: min(55px, 5vh); }
 .home-project--image-right .home-project__meta { grid-column: 1 / span 3; grid-row: 1; padding-top: min(35px, 4vh); }
 .home-project--image-right .home-project__image { grid-column: 4 / -1; grid-row: 1; aspect-ratio: 1.72 / 1; }
-.home-project--image-wide { display: grid; grid-template-rows: auto 1fr; min-height: auto; }
-.home-project--image-wide .home-project__strap { display: block; grid-column: 1 / -1; grid-row: 1; padding-bottom: 12px; }
-.home-project--image-wide .home-project__image { grid-column: 1 / -1; grid-row: 2; aspect-ratio: 2.05 / 1; }
-.home-project--image-wide .home-project__meta { position: absolute; z-index: 2; right: 30px; bottom: 62px; width: min(330px, 28vw); padding: 24px; background: rgba(255,255,255,.96); }
-.home-project--image-wide .home-project__meta h2 { margin-top: 15px; font-size: clamp(2.4rem, 3.4vw, 3.8rem); }
-.home-project--image-wide .project-location { font-size: 1.5rem; }
-.home-project--image-wide .project-type { margin-top: 24px; }
-
 .site-footer { display: flex; justify-content: space-between; padding-top: 28px; font-size: .66rem; letter-spacing: .15em; }
 
 .project-page, .text-page { min-height: 100svh; padding: calc(var(--header-h) + 42px) var(--page-x) 42px; }
@@ -196,9 +186,6 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
   .home-project__meta h2 { margin-top: 16px; }
   .project-type { margin-top: 20px; }
   .project-link { margin-top: 20px; }
-  .home-project--image-wide .home-project__strap { display: none; }
-  .home-project--image-wide .home-project__meta { position: static; width: auto; padding: 0; background: transparent; }
-  .home-project--image-wide .home-project__image { aspect-ratio: 1.4 / 1; }
   .project-intro { grid-template-columns: 1fr; gap: 50px; }
   .project-intro h1 { font-size: clamp(4.1rem, 15vw, 7rem); }
   .project-hero img { aspect-ratio: 1.35 / 1; }
@@ -224,7 +211,7 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
   .home-hero { min-height: 245px; padding-bottom: 28px; }
   .home-hero h1 { font-size: clamp(2.8rem, 13vw, 4rem); }
   .home-disciplines { max-width: 280px; line-height: 1.8; }
-  .home-project__image, .home-project--image-wide .home-project__image { aspect-ratio: 1.12 / 1; }
+  .home-project__image { aspect-ratio: 1.12 / 1; }
   .home-project__meta h2 { font-size: clamp(2.8rem, 14vw, 4.2rem); }
   .project-location { font-size: 1.6rem; }
   .site-footer { flex-direction: column; gap: 14px; }
