@@ -119,6 +119,7 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
 .story-plan h2 { margin: 0; font-size: .69rem; font-weight: 400; letter-spacing: .13em; text-transform: uppercase; }
 .story-plan header p { margin: 0; color: var(--muted); font-size: .74rem; }
 .story-plan .story-figure img { max-height: 720px; }
+.story-plan .story-figure--plan-following { margin-top: clamp(56px, 7vw, 104px); }
 .story-duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(22px, 3.4vw, 54px); align-items: start; }
 .story-duo .story-figure img { aspect-ratio: 1.4 / 1; }
 .story-duo .story-figure--drawing img { object-fit: contain; }
