@@ -59,9 +59,10 @@
   function bilbaoStory() {
     return `
       <section class="story-split story-split--copy-left reveal">
-        ${textBlock('01.01', 'Preexistencia<br>y contexto', 'La intervención conserva la antigua fábrica e incorpora dos plantas retranqueadas, relacionando la arquitectura existente con una nueva organización residencial.')}
+        ${textBlock('01.01', 'Preexistencia<br>y contexto', 'La intervención parte de la conservación de la fachada y del volumen de la antigua fábrica. El interior se reorganiza para introducir el nuevo programa residencial y la ampliación se sitúa sobre la cornisa existente mediante dos plantas retranqueadas.')}
         ${figure('bilbaoDiagram', '', 'story-figure--drawing')}
         ${figure('bilbaoPark', 'VISTA DESDE EL PARQUE', 'story-figure--park-below')}
+        <div class="story-copy story-copy--park-text"><p>Desde el parque, la fachada conservada continúa definiendo la presencia urbana del edificio. Las plantas añadidas se retranquean para reducir su impacto y mantener la lectura del volumen industrial original.</p></div>
       </section>
       <section class="story-plan reveal">
         <header><span class="story-number" aria-hidden="true"></span><h2>Organización residencial</h2><p>Cinco portales · 144 viviendas · patios interiores</p></header>
