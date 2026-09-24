@@ -4,8 +4,6 @@
   const navLinks = [...document.querySelectorAll('.site-header nav a')];
 
   const imageUrl = (key) => content.images[key];
-  const pad = (value) => String(value).padStart(2, '0');
-
   function routePath() {
     const raw = window.location.hash.slice(1) || '/';
     return raw.length > 1 ? raw.replace(/\/+$/, '') : raw;
@@ -22,7 +20,7 @@
     return `
       <article class="home-project home-project--${layouts[index % layouts.length]} reveal">
         <div class="home-project__meta">
-          <span class="project-number">${project.number}</span>
+          <span class="project-number" aria-hidden="true"></span>
           <div>
             <h2>${projectTitle(project)}</h2>
             <p class="project-location">${project.location}</p>
@@ -55,7 +53,7 @@
   }
 
   function textBlock(number, title, text) {
-    return `<div class="story-copy"><span class="story-number">${number}</span><h2>${title}</h2><p>${text}</p></div>`;
+    return `<div class="story-copy"><span class="story-number" aria-hidden="true"></span><h2>${title}</h2><p>${text}</p></div>`;
   }
 
   function bilbaoStory() {
@@ -66,7 +64,7 @@
         ${figure('bilbaoPark', 'VISTA DESDE EL PARQUE', 'story-figure--park-below')}
       </section>
       <section class="story-plan reveal">
-        <header><span class="story-number">01.02</span><h2>Organización residencial</h2><p>Cinco portales · 144 viviendas · patios interiores</p></header>
+        <header><span class="story-number" aria-hidden="true"></span><h2>Organización residencial</h2><p>Cinco portales · 144 viviendas · patios interiores</p></header>
         ${figure('bilbaoPlan01', 'PLANTA PRIMERA A TERCERA', 'story-figure--drawing')}
       </section>
       <section class="story-duo reveal">
@@ -86,7 +84,7 @@
   function marbellaStory() {
     return `
       <section class="story-plan reveal">
-        <header><span class="story-number">02.01</span><h2>Implantación y escala</h2><p>12 edificios · cerca de 300 alojamientos · 50.000 m²</p></header>
+        <header><span class="story-number" aria-hidden="true"></span><h2>Implantación y escala</h2><p>12 edificios · cerca de 300 alojamientos · 50.000 m²</p></header>
         ${figure('marbellaSitePlan', 'PLANTA GENERAL', 'story-figure--drawing')}
       </section>
       <section class="story-split story-split--image-left reveal">
@@ -102,7 +100,7 @@
         ${figure('marbellaTypologies', 'PLANTA TIPO · TIPOLOGÍAS', 'story-figure--drawing')}
       </section>
       <section class="story-plan reveal">
-        <header><span class="story-number">02.04</span><h2>Zonas comunes</h2><p>Salud · rehabilitación · deporte · convivencia</p></header>
+        <header><span class="story-number" aria-hidden="true"></span><h2>Zonas comunes</h2><p>Salud · rehabilitación · deporte · convivencia</p></header>
         ${figure('marbellaCommon123', 'ZONAS COMUNES · BLOQUES 1, 2 Y 3', 'story-figure--drawing')}
       </section>`;
   }
@@ -114,7 +112,7 @@
         ${figure('cedacerosCommonAreas', 'ZONAS COMUNES · PLANTA BAJA')}
       </section>
       <section class="story-plan reveal">
-        <header><span class="story-number">03.02</span><h2>Organización de planta baja</h2><p>Acceso · recepción · zonas comunes · 22 viviendas</p></header>
+        <header><span class="story-number" aria-hidden="true"></span><h2>Organización de planta baja</h2><p>Acceso · recepción · zonas comunes · 22 viviendas</p></header>
         ${figure('cedacerosGroundPlan', 'PLANTA BAJA', 'story-figure--drawing')}
       </section>
       <section class="story-split story-split--image-left reveal">
@@ -169,7 +167,7 @@
       <a href="#/" class="back-link"><span aria-hidden="true">←</span> ÍNDICE</a>
       <header class="project-intro">
         <div class="project-intro__title">
-          <p class="ui-label">${project.number} · PROYECTO</p>
+          <p class="ui-label">PROYECTO</p>
           <h1>${projectTitle(project)}</h1>
           <p class="project-intro__location">${project.location}</p>
         </div>
@@ -181,13 +179,13 @@
       ${figure(project.cover, project.coverLabel, 'project-hero')}
       <div class="project-story">${projectStory(project)}</div>
       <section class="project-role reveal">
-        <span class="story-number">${project.number}.05</span>
+        <span class="story-number" aria-hidden="true"></span>
         <h2>Participación<br>profesional</h2>
         <p>${project.action}</p>
       </section>
       <nav class="next-project" aria-label="Siguiente proyecto">
         <p>SIGUIENTE PROYECTO</p>
-        <a href="#/projects/${next.slug}"><span>${next.number}</span>${next.title}<i aria-hidden="true">↗</i></a>
+        <a href="#/projects/${next.slug}"><span aria-hidden="true"></span>${next.title}<i aria-hidden="true">↗</i></a>
       </nav>`;
   }
 
@@ -208,8 +206,8 @@
   }
 
   function cvView() {
-    const experience = content.cv.experience.map((entry, index) => `
-      <article class="cv-entry"><span class="cv-entry-index">${pad(index + 1)}</span><div class="cv-entry-body">
+    const experience = content.cv.experience.map((entry) => `
+      <article class="cv-entry"><span class="cv-entry-index" aria-hidden="true"></span><div class="cv-entry-body">
         <header class="cv-entry-header"><h3>${entry.company}<span>${entry.role}</span></h3><p>${entry.period}<br>${entry.location}</p></header>
         <div class="cv-entry-copy">${entry.paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join('')}</div>
       </div></article>`).join('');
@@ -218,9 +216,9 @@
     const software = content.cv.software.map((entry) => `<div class="cv-software-group"><h3>${entry.level}</h3><p>${entry.tools}</p></div>`).join('');
     return `
       <header class="page-heading page-heading--text"><div><p class="ui-label">CURRICULUM VITAE</p><h1>Formación<br>y experiencia</h1></div><p class="page-note">JAIME POLAINA<br>ARQUITECTO</p></header>
-      <section class="cv-section"><header class="cv-section-heading"><span>01</span><h2>Formación académica</h2></header><div>${education}</div></section>
-      <section class="cv-section"><header class="cv-section-heading"><span>02</span><h2>Software</h2></header><div class="cv-software-grid">${software}</div></section>
-      <section class="cv-section"><header class="cv-section-heading"><span>03</span><h2>Experiencia profesional</h2></header><div>${experience}</div></section>`;
+      <section class="cv-section"><header class="cv-section-heading"><span aria-hidden="true"></span><h2>Formación académica</h2></header><div>${education}</div></section>
+      <section class="cv-section"><header class="cv-section-heading"><span aria-hidden="true"></span><h2>Software</h2></header><div class="cv-software-grid">${software}</div></section>
+      <section class="cv-section"><header class="cv-section-heading"><span aria-hidden="true"></span><h2>Experiencia profesional</h2></header><div>${experience}</div></section>`;
   }
 
   function notFoundView() {
