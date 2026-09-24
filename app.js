@@ -85,10 +85,6 @@
 
   function marbellaStory() {
     return `
-      <section class="story-plan reveal">
-        <header><span class="story-number" aria-hidden="true"></span><h2>Implantación y escala</h2><p>12 edificios · cerca de 300 alojamientos · 50.000 m²</p></header>
-        ${figure('marbellaSitePlan', 'PLANTA GENERAL', 'story-figure--drawing')}
-      </section>
       <section class="story-split story-split--image-left reveal">
         ${figure('marbellaBuilding', 'EDIFICIO TIPO')}
         ${textBlock('02.02', 'Un sistema<br>residencial', 'La implantación articula edificios residenciales, espacios asistenciales y zonas comunes dentro de un conjunto de gran escala vinculado al paisaje.')}
@@ -97,9 +93,20 @@
         ${textBlock('02.03', 'Modelo BIM<br>coordinado', 'El modelo organiza plantas, tipologías, secciones, fachadas y documentación de las fases de Proyecto Básico y Proyecto de Ejecución.')}
         ${figure('marbellaBim', 'MODELO BIM', 'story-figure--drawing')}
       </section>
-      <section class="story-duo story-duo--plans reveal">
+      <section class="story-representative reveal">
         ${figure('marbellaGround123', 'PLANTA BAJA · BLOQUES 1, 2 Y 3', 'story-figure--drawing')}
-        ${figure('marbellaTypologies', 'PLANTA TIPO · TIPOLOGÍAS', 'story-figure--drawing')}
+        <aside class="story-representative__note">
+          <p class="ui-label">EDIFICIOS 1, 2 Y 3</p>
+          <h2>Tipo representativo</h2>
+          <p>Los tres edificios se desarrollan como muestra representativa del sistema residencial. Su planta reúne las principales soluciones de acceso, distribución y relación con los espacios exteriores, trasladables al conjunto.</p>
+        </aside>
+      </section>
+      <section class="story-typologies reveal">
+        ${figure('marbellaTypologies', 'PLANTA TIPO · TIPOLOGÍAS', 'story-figure--drawing story-typologies__plan')}
+        <div class="story-typologies__zooms" aria-label="Tipologías ampliadas">
+          ${figure('marbellaTypology1d', 'TIPOLOGÍA · 1 DORMITORIO', 'story-figure--drawing story-typologies__zoom')}
+          ${figure('marbellaTypology2d', 'TIPOLOGÍA · 2 DORMITORIOS', 'story-figure--drawing story-typologies__zoom')}
+        </div>
       </section>
       <section class="story-plan reveal">
         <header><span class="story-number" aria-hidden="true"></span><h2>Zonas comunes</h2><p>Salud · rehabilitación · deporte · convivencia</p></header>
