@@ -66,7 +66,7 @@
       </section>
       <section class="story-plan reveal">
         <header><span class="story-number" aria-hidden="true"></span><h2>Organización residencial</h2><p>Cinco portales · 144 viviendas · patios interiores</p></header>
-        ${figure('bilbaoPlan01', 'PLANTA PRIMERA A TERCERA', 'story-figure--drawing')}
+        ${figure('bilbaoPlan01', 'PLANTA BAJA A TERCERA', 'story-figure--drawing')}
         ${figure('bilbaoAttic01', 'ÁTICO 1', 'story-figure--drawing story-figure--plan-following')}
       </section>
       <section class="story-duo reveal">
