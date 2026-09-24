@@ -217,10 +217,10 @@
       <article class="cv-education-entry"><div><h3>${entry.title}</h3><p class="cv-education-meta">${entry.institution} · ${entry.period}</p></div>${entry.description ? `<p>${entry.description}</p>` : ''}</article>`).join('');
     const software = content.cv.software.map((entry) => `<div class="cv-software-group"><h3>${entry.level}</h3><p>${entry.tools}</p></div>`).join('');
     return `
-      <header class="page-heading page-heading--text"><div><p class="ui-label">CURRICULUM VITAE</p><h1>Experiencia<br>y formación</h1></div><p class="page-note">JAIME POLAINA<br>ARQUITECTO</p></header>
-      <section class="cv-section"><header class="cv-section-heading"><span>01</span><h2>Experiencia profesional</h2></header><div>${experience}</div></section>
-      <section class="cv-section"><header class="cv-section-heading"><span>02</span><h2>Formación académica</h2></header><div>${education}</div></section>
-      <section class="cv-section"><header class="cv-section-heading"><span>03</span><h2>Software</h2></header><div class="cv-software-grid">${software}</div></section>`;
+      <header class="page-heading page-heading--text"><div><p class="ui-label">CURRICULUM VITAE</p><h1>Formación<br>y experiencia</h1></div><p class="page-note">JAIME POLAINA<br>ARQUITECTO</p></header>
+      <section class="cv-section"><header class="cv-section-heading"><span>01</span><h2>Formación académica</h2></header><div>${education}</div></section>
+      <section class="cv-section"><header class="cv-section-heading"><span>02</span><h2>Software</h2></header><div class="cv-software-grid">${software}</div></section>
+      <section class="cv-section"><header class="cv-section-heading"><span>03</span><h2>Experiencia profesional</h2></header><div>${experience}</div></section>`;
   }
 
   function notFoundView() {
