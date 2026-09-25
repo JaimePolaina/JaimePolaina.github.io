@@ -87,10 +87,10 @@
     return `
       <section class="story-split story-split--image-left reveal">
         ${figure('marbellaBuilding', 'EDIFICIO TIPO')}
-        ${textBlock('02.02', 'Un sistema<br>residencial', 'La implantación articula edificios residenciales, espacios asistenciales y zonas comunes dentro de un conjunto de gran escala vinculado al paisaje.')}
+        ${textBlock('02.02', 'Doce edificios,<br>un solo sistema', 'El proyecto reúne alojamiento, asistencia y zonas comunes en edificios organizados mediante una lógica compartida. El paisaje y los espacios exteriores conectan las distintas piezas y dan continuidad al conjunto.')}
       </section>
       <section class="story-split story-split--copy-left reveal">
-        ${textBlock('02.03', 'Modelo BIM<br>coordinado', 'El modelo organiza plantas, tipologías, secciones, fachadas y documentación de las fases de Proyecto Básico y Proyecto de Ejecución.')}
+        ${textBlock('02.03', 'Modelo central<br>y vínculos', 'El proyecto se organiza mediante un modelo central al que se incorporan como vínculos los modelos independientes de cada edificio. Esta estructura permite desarrollar los distintos modelos de forma simultánea, controlar sus actualizaciones y coordinar su posición dentro de la implantación general durante las fases de Proyecto Básico y Proyecto de Ejecución.')}
         ${figure('marbellaBim', 'MODELO BIM', 'story-figure--drawing')}
       </section>
       <section class="story-common-scheme reveal">
@@ -103,8 +103,8 @@
         ${figure('marbellaGround123', 'BLOQUE 01 -PB Y 02-03 P1', 'story-figure--drawing')}
         <aside class="story-representative__note">
           <p class="ui-label">EDIFICIOS 1, 2 Y 3</p>
-          <h2>Tipo representativo</h2>
-          <p>Los tres edificios se desarrollan como muestra representativa del sistema residencial. Su planta reúne las principales soluciones de acceso, distribución y relación con los espacios exteriores, trasladables al conjunto.</p>
+          <h2>Un sistema tipológico común</h2>
+          <p>Los edificios 1, 2 y 3 condensan la lógica residencial del conjunto. Las tipologías desarrolladas en estas plantas, junto con sus criterios de acceso y distribución, se mantienen en el resto de las edificaciones, adaptándose a la geometría y posición de cada pieza dentro de la implantación general.</p>
         </aside>
       </section>
       <section class="story-typologies reveal">
