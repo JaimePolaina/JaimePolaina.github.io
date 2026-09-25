@@ -124,6 +124,11 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
 .story-duo .story-figure img { aspect-ratio: 1.4 / 1; }
 .story-duo .story-figure--drawing img { object-fit: contain; }
 .story-duo--plans .story-figure img { aspect-ratio: 1.25 / 1; }
+.story-common-scheme { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 38px); align-items: center; border-top: 1px solid var(--rule); padding-top: 18px; }
+.story-common-scheme__plan { grid-column: 1 / span 9; }
+.story-common-scheme__plan img { height: auto; max-height: 720px; object-fit: contain; }
+.story-common-scheme__diagram { grid-column: 10 / -1; justify-self: center; width: min(100%, 230px); }
+.story-common-scheme__diagram img { width: 100%; height: auto; max-height: 480px; object-fit: contain; }
 .story-representative { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 38px); align-items: start; border-top: 1px solid var(--rule); padding-top: 18px; }
 .story-representative > .story-figure { grid-column: 1 / span 9; }
 .story-representative > .story-figure img { height: auto; max-height: 720px; object-fit: contain; }
@@ -214,6 +219,8 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
   .story-split--copy-left .story-copy--park-text { order: 4; }
   .story-copy p { max-width: 48ch; }
   .story-duo { grid-template-columns: 1fr; gap: 58px; }
+  .story-common-scheme { grid-template-columns: minmax(0, 1fr) minmax(150px, .34fr); gap: 28px; }
+  .story-common-scheme__plan, .story-common-scheme__diagram { grid-column: auto; }
   .story-representative { grid-template-columns: 1fr; gap: 34px; }
   .story-representative > .story-figure, .story-representative__note { grid-column: 1; }
   .story-representative__note { max-width: 52ch; }
@@ -247,6 +254,9 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--accent); outlin
   .project-hero { margin-bottom: 90px; }
   .project-hero img { aspect-ratio: 1 / 1; }
   .project-story { gap: 90px; }
+  .story-common-scheme { grid-template-columns: 1fr; }
+  .story-common-scheme__plan, .story-common-scheme__diagram { grid-column: 1; }
+  .story-common-scheme__diagram { justify-self: start; width: min(70%, 220px); }
   .story-typologies__zooms { grid-template-columns: 1fr; max-width: 360px; }
   .story-copy h2 { font-size: clamp(2.7rem, 13vw, 4rem); }
   .story-plan header { grid-template-columns: 52px 1fr; }

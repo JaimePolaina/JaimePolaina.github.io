@@ -93,8 +93,14 @@
         ${textBlock('02.03', 'Modelo BIM<br>coordinado', 'El modelo organiza plantas, tipologías, secciones, fachadas y documentación de las fases de Proyecto Básico y Proyecto de Ejecución.')}
         ${figure('marbellaBim', 'MODELO BIM', 'story-figure--drawing')}
       </section>
+      <section class="story-common-scheme reveal">
+        ${figure('marbellaCommon123', 'BLOQUE 01 S02 Y 02-03 S01', 'story-figure--drawing story-common-scheme__plan')}
+        <figure class="story-figure story-figure--drawing story-common-scheme__diagram">
+          <img src="${imageUrl('marbellaBlocksDiagram')}" alt="Esquema de localización de los bloques 1, 2 y 3" loading="lazy">
+        </figure>
+      </section>
       <section class="story-representative reveal">
-        ${figure('marbellaGround123', 'PLANTA BAJA · BLOQUES 1, 2 Y 3', 'story-figure--drawing')}
+        ${figure('marbellaGround123', 'BLOQUE 01 -PB Y 02-03 P1', 'story-figure--drawing')}
         <aside class="story-representative__note">
           <p class="ui-label">EDIFICIOS 1, 2 Y 3</p>
           <h2>Tipo representativo</h2>
@@ -102,15 +108,11 @@
         </aside>
       </section>
       <section class="story-typologies reveal">
-        ${figure('marbellaTypologies', 'PLANTA TIPO · TIPOLOGÍAS', 'story-figure--drawing story-typologies__plan')}
+        ${figure('marbellaTypologies', 'PLANTA RESIDENCIAL TIPO', 'story-figure--drawing story-typologies__plan')}
         <div class="story-typologies__zooms" aria-label="Tipologías ampliadas">
           ${figure('marbellaTypology1d', 'TIPOLOGÍA · 1 DORMITORIO', 'story-figure--drawing story-typologies__zoom')}
           ${figure('marbellaTypology2d', 'TIPOLOGÍA · 2 DORMITORIOS', 'story-figure--drawing story-typologies__zoom')}
         </div>
-      </section>
-      <section class="story-plan reveal">
-        <header><span class="story-number" aria-hidden="true"></span><h2>Zonas comunes</h2><p>Salud · rehabilitación · deporte · convivencia</p></header>
-        ${figure('marbellaCommon123', 'ZONAS COMUNES · BLOQUES 1, 2 Y 3', 'story-figure--drawing')}
       </section>`;
   }
 
